@@ -6,17 +6,18 @@
     <title>Suresh Veluchamy - Technical Lead</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #e94560;
-            --text-light: #f0f0f0;
-            --text-muted: #a0a0a0;
-            --bg-dark: #0f0f1e;
-            --card-bg: #1e1e30;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary: #00d4ff;
+            --secondary: #0099cc;
+            --accent: #ff6b35;
+            --dark: #0a0e27;
+            --darker: #050814;
+            --text-light: #ffffff;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -26,33 +27,75 @@
         }
 
         body {
-            font-family: 'Work Sans', sans-serif;
-            background: var(--bg-dark);
+            font-family: 'Poppins', sans-serif;
+            background: var(--darker);
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* Animated background */
+        /* Animated gradient background */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(233, 69, 96, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 153, 204, 0.1) 0%, transparent 50%);
+            animation: gradientShift 15s ease-in-out infinite;
             z-index: -1;
-            animation: bgShift 20s ease-in-out infinite;
         }
 
-        @keyframes bgShift {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(5%, 5%) rotate(120deg); }
+            66% { transform: translate(-5%, 5%) rotate(240deg); }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .particle:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation: float 10s ease-in-out infinite 2s;
+        }
+
+        .particle:nth-child(3) {
+            top: 80%;
+            left: 30%;
+            animation: float 12s ease-in-out infinite 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         /* Sidebar Navigation */
@@ -62,13 +105,13 @@
             top: 50%;
             transform: translateY(-50%);
             z-index: 1000;
-            animation: fadeInRight 1s ease-out 1.5s both;
+            animation: slideInRight 1s ease-out 1.5s both;
         }
 
-        @keyframes fadeInRight {
+        @keyframes slideInRight {
             from {
                 opacity: 0;
-                transform: translate(30px, -50%);
+                transform: translate(50px, -50%);
             }
             to {
                 opacity: 1;
@@ -98,10 +141,11 @@
             font-size: 0.85rem;
             font-weight: 500;
             color: var(--text-light);
-            background: var(--card-bg);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
             white-space: nowrap;
             pointer-events: none;
         }
@@ -125,13 +169,14 @@
             background: var(--accent);
             border-color: var(--accent);
             transform: scale(1.3);
+            box-shadow: 0 0 20px var(--accent);
         }
 
         .nav-item.active .nav-dot {
-            background: var(--gradient);
+            background: var(--primary);
             border-color: transparent;
             transform: scale(1.5);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 0 30px var(--primary);
         }
 
         .nav-item.active .nav-dot::after {
@@ -146,7 +191,7 @@
             border-radius: 50%;
         }
 
-        /* Mobile navigation toggle */
+        /* Mobile navigation */
         .nav-toggle {
             display: none;
             position: fixed;
@@ -155,17 +200,17 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
             cursor: pointer;
             z-index: 1001;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 30px rgba(0, 212, 255, 0.5);
             transition: all 0.3s ease;
         }
 
         .nav-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 8px 40px rgba(0, 212, 255, 0.7);
         }
 
         .nav-toggle span {
@@ -182,24 +227,6 @@
             margin-bottom: 0;
         }
 
-        .nav-toggle.active span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .nav-toggle.active span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
         /* Header */
         header {
             padding: 4rem 0 3rem;
@@ -210,7 +237,7 @@
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-50px);
             }
             to {
                 opacity: 1;
@@ -227,58 +254,80 @@
 
         .profile-photo-container {
             position: relative;
-            animation: fadeInLeft 1s ease-out 0.3s both;
+            animation: scaleIn 1s ease-out 0.3s both;
         }
 
-        .profile-photo {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid transparent;
-            background: var(--gradient);
-            padding: 4px;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .profile-photo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .profile-photo-placeholder {
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 4rem;
-            font-weight: 700;
+            font-weight: 900;
             color: white;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s ease;
+            box-shadow: 
+                0 20px 60px rgba(0, 212, 255, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-photo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .profile-photo-placeholder:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 
+                0 25px 80px rgba(0, 212, 255, 0.6),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 4.5rem;
             font-weight: 900;
             line-height: 1;
             margin-bottom: 1rem;
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: fadeInUp 1s ease-out 0.2s both;
+            text-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
         }
 
         @keyframes fadeInUp {
@@ -298,6 +347,8 @@
             color: var(--text-muted);
             margin-bottom: 2rem;
             animation: fadeInUp 1s ease-out 0.4s both;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .intro {
@@ -308,20 +359,51 @@
             animation: fadeInUp 1s ease-out 0.6s both;
         }
 
-        .contact-card {
-            background: var(--card-bg);
+        /* Glass morphism cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
             padding: 2rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: fadeInLeft 1s ease-out 0.8s both;
+            border-radius: 1.5rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.1) 0%, 
+                transparent 50%, 
+                rgba(255, 107, 53, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact-card {
+            animation: fadeInLeft 1s ease-out 0.8s both;
         }
 
         @keyframes fadeInLeft {
             from {
                 opacity: 0;
-                transform: translateX(30px);
+                transform: translateX(50px);
             }
             to {
                 opacity: 1;
@@ -329,14 +411,14 @@
             }
         }
 
-        .contact-card::before {
+        .contact-card::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 3px;
-            background: var(--gradient);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
 
         .contact-item {
@@ -345,6 +427,11 @@
             gap: 0.75rem;
             margin-bottom: 1rem;
             font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
         }
 
         .contact-item:last-child {
@@ -357,7 +444,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent);
+            color: var(--primary);
         }
 
         .contact-item a {
@@ -367,10 +454,10 @@
         }
 
         .contact-item a:hover {
-            color: var(--accent);
+            color: var(--primary);
         }
 
-        /* Skills Section */
+        /* Skills */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -379,14 +466,37 @@
         }
 
         .skill-badge {
-            background: var(--card-bg);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: 500;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            font-weight: 600;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             animation: fadeInUp 1s ease-out both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-badge::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .skill-badge:hover::before {
+            width: 300px;
+            height: 300px;
+            opacity: 0.2;
         }
 
         .skill-badge:nth-child(1) { animation-delay: 0.1s; }
@@ -396,24 +506,37 @@
         .skill-badge:nth-child(5) { animation-delay: 0.5s; }
 
         .skill-badge:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
         }
 
-        /* Section Headers */
+        /* Sections */
         .section {
             margin: 5rem 0;
             animation: fadeInUp 1s ease-out both;
         }
 
         .section-header {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 900;
             margin-bottom: 2.5rem;
             position: relative;
             display: inline-block;
+            color: var(--text-light);
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+            box-shadow: 0 0 20px var(--primary);
         }
 
         .section-header::after {
@@ -422,26 +545,22 @@
             bottom: -10px;
             left: 0;
             width: 60%;
-            height: 3px;
-            background: var(--gradient);
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             border-radius: 2px;
+            filter: blur(10px);
+            opacity: 0.5;
         }
 
-        /* Experience Cards */
+        /* Experience */
         .experience-item {
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 1rem;
             margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            transition: all 0.3s ease;
             animation: fadeInUp 1s ease-out both;
+            transition: all 0.5s ease;
         }
 
         .experience-item:hover {
-            transform: translateX(10px);
-            border-color: rgba(233, 69, 96, 0.5);
+            transform: translateX(15px);
         }
 
         .experience-header {
@@ -455,9 +574,10 @@
 
         .experience-title {
             font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--accent);
+            font-weight: 700;
+            color: var(--primary);
             margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .experience-company {
@@ -471,19 +591,29 @@
             color: var(--text-muted);
             font-weight: 500;
             padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             border-radius: 0.5rem;
+            border: 1px solid var(--glass-border);
         }
 
         .project-tag {
             display: inline-block;
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
-            padding: 0.3rem 0.8rem;
-            border-radius: 0.3rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 53, 0.2));
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 0.5rem;
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
             margin: 0.5rem 0.5rem 0.5rem 0;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .project-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
         }
 
         .experience-item ul {
@@ -496,6 +626,12 @@
             margin-bottom: 0.75rem;
             position: relative;
             color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .experience-item li:hover {
+            color: var(--primary);
+            transform: translateX(5px);
         }
 
         .experience-item li::before {
@@ -504,17 +640,22 @@
             left: 0;
             color: var(--accent);
             font-weight: bold;
+            font-size: 1.2rem;
         }
 
         .tech-stack {
             margin-top: 1.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid var(--glass-border);
             font-size: 0.9rem;
             color: var(--text-muted);
         }
 
-        /* Technical Skills Section */
+        .tech-stack strong {
+            color: var(--primary);
+        }
+
+        /* Technical Skills */
         .tech-skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -522,18 +663,15 @@
         }
 
         .tech-category {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             animation: fadeInUp 1s ease-out both;
         }
 
         .tech-category h3 {
             font-size: 1.2rem;
             margin-bottom: 1rem;
-            color: var(--accent);
-            font-weight: 600;
+            color: var(--primary);
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .tech-category p {
@@ -541,21 +679,19 @@
             color: var(--text-light);
         }
 
-        /* Education & Certifications */
+        /* Timeline */
         .timeline-item {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 1rem;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: 4px solid var(--accent);
+            border-left: 4px solid var(--primary);
             animation: fadeInUp 1s ease-out both;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
+            box-shadow: -20px 0 40px rgba(0, 212, 255, 0);
         }
 
         .timeline-item:hover {
-            transform: translateX(10px);
+            transform: translateX(15px);
             border-left-width: 6px;
+            box-shadow: -20px 0 40px rgba(0, 212, 255, 0.3);
         }
 
         .timeline-date {
@@ -577,15 +713,11 @@
 
         /* Accomplishments */
         .accomplishment-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 1rem;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
             animation: fadeInUp 1s ease-out both;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
         }
 
         .accomplishment-card::before {
@@ -593,13 +725,22 @@
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
-            font-size: 2rem;
-            color: rgba(233, 69, 96, 0.2);
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.2;
+            transition: all 0.5s ease;
+        }
+
+        .accomplishment-card:hover::before {
+            opacity: 0.4;
+            transform: rotate(72deg) scale(1.2);
         }
 
         .accomplishment-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
+            transform: translateY(-10px);
         }
 
         .accomplishment-card p {
@@ -607,32 +748,360 @@
             z-index: 1;
         }
 
+        .accomplishment-card strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Languages */
+        .languages {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .language-badge {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 53, 0.2));
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .language-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Work Preferences */
+        .preference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .preference-item h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .preference-item p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .location-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .location-tag {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 53, 0.2));
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .location-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Work Availability Table */
+        .availability-container {
+            margin-top: 2rem;
+            overflow-x: auto;
+        }
+
+        .availability-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .availability-table th {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 1.25rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--glass-border);
+        }
+
+        .availability-table td {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .availability-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .availability-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-light);
+            padding-left: 2rem;
+        }
+
+        .availability-table tr:hover td {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .available {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .unavailable {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Timeline Styles */
+        .timeline-container {
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            transform: translateX(-50%);
+        }
+
+        .timeline-items {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .timeline-entry {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .timeline-entry:nth-child(even) .timeline-content-left {
+            order: 3;
+        }
+
+        .timeline-entry:nth-child(even) .timeline-dot-container {
+            order: 2;
+        }
+
+        .timeline-entry:nth-child(even) .timeline-content-right {
+            order: 1;
+        }
+
+        .timeline-content-left,
+        .timeline-content-right {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .timeline-content-left:hover,
+        .timeline-content-right:hover {
+            transform: scale(1.05);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .timeline-content-left {
+            text-align: right;
+        }
+
+        .timeline-dot-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: 4px solid var(--darker);
+            box-shadow: 0 0 30px var(--primary);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 30px var(--primary); }
+            50% { box-shadow: 0 0 50px var(--primary), 0 0 70px var(--primary); }
+        }
+
+        .timeline-cert-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .timeline-content-right .timeline-cert-icon {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .timeline-content-left .timeline-cert-icon {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .timeline-cert-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-cert-org {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-cert-date {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Affiliations */
+        .affiliations-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .affiliations-list li {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out both;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .affiliations-list li::before {
+            content: '★';
+            color: var(--primary);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .affiliations-list li:hover {
+            transform: translateX(10px);
+            border-left-width: 6px;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-entry {
+                grid-template-columns: auto 1fr;
+                gap: 1rem;
+            }
+
+            .timeline-content-left {
+                display: none;
+            }
+
+            .timeline-entry:nth-child(even) .timeline-content-right {
+                order: 2;
+            }
+
+            .timeline-entry:nth-child(even) .timeline-dot-container {
+                order: 1;
+            }
+
+            .timeline-content-right {
+                text-align: left;
+            }
+
+            .timeline-content-right .timeline-cert-icon {
+                margin-left: 0;
+                margin-right: auto;
+            }
+
+            .availability-table {
+                font-size: 0.85rem;
+            }
+
+            .availability-table th,
+            .availability-table td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .availability-table td:first-child {
+                padding-left: 1rem;
+            }
+        }
+
         /* Footer */
         footer {
             text-align: center;
             padding: 3rem 0;
             margin-top: 5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid var(--glass-border);
             color: var(--text-muted);
             animation: fadeInUp 1s ease-out both;
-        }
-
-        .download-btn {
-            display: inline-block;
-            background: var(--gradient);
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
         }
 
         /* Responsive */
@@ -672,8 +1141,9 @@
                 right: 1rem;
                 left: 1rem;
                 transform: none;
-                background: var(--card-bg);
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
                 border-radius: 1rem;
                 padding: 1.5rem;
                 max-height: 70vh;
@@ -717,32 +1187,14 @@
                 justify-content: center;
             }
         }
-
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            animation: fadeInUp 1s ease-out forwards;
-        }
-
-        /* Languages badges */
-        .languages {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .language-badge {
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
     </style>
 </head>
 <body>
+    <!-- Floating particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
     <!-- Sidebar Navigation -->
     <nav class="sidebar-nav">
         <div class="nav-items">
@@ -758,6 +1210,10 @@
                 <span class="nav-label">Technical Skills</span>
                 <div class="nav-dot"></div>
             </div>
+            <div class="nav-item" data-section="work-preferences">
+                <span class="nav-label">Work Preferences</span>
+                <div class="nav-dot"></div>
+            </div>
             <div class="nav-item" data-section="accomplishments">
                 <span class="nav-label">Accomplishments</span>
                 <div class="nav-dot"></div>
@@ -767,7 +1223,11 @@
                 <div class="nav-dot"></div>
             </div>
             <div class="nav-item" data-section="certifications">
-                <span class="nav-label">Certifications</span>
+                <span class="nav-label">Timeline</span>
+                <div class="nav-dot"></div>
+            </div>
+            <div class="nav-item" data-section="affiliations">
+                <span class="nav-label">Affiliations</span>
                 <div class="nav-dot"></div>
             </div>
         </div>
@@ -784,19 +1244,9 @@
         <header id="header">
             <div class="header-content">
                 <div class="profile-photo-container">
-                    <!-- TO USE YOUR LINKEDIN PHOTO:
-                         1. Go to your LinkedIn profile
-                         2. Right-click on your profile photo
-                         3. Select "Copy image address"
-                         4. Paste the URL in the src below, replacing the placeholder URL
-                         5. Uncomment the <img> line and comment out the placeholder <div>
-                    -->
-                    
-                    <!-- Option 1: LinkedIn Photo - Replace YOUR_LINKEDIN_PHOTO_URL with actual URL -->
-                     <img src="https://media.licdn.com/dms/image/v2/D5603AQHpzvmYcnIQww/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1689078558161?e=1767225600&v=beta&t=kmhvIgoHu0R77JzG9jR0fcAXHO7xzIZ3URV-QCbuLlg" alt="Suresh Veluchamy" class="profile-photo" crossorigin="anonymous"> 
-                    
-                    <!-- Option 2: Placeholder with initials (currently active) -->
-                   <!-- <div class="profile-photo-placeholder">SV</div> -->
+                    <div class="profile-photo-placeholder">
+										 <img src="https://media.licdn.com/dms/image/v2/D5603AQHpzvmYcnIQww/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1689078558161?e=1767225600&v=beta&t=kmhvIgoHu0R77JzG9jR0fcAXHO7xzIZ3URV-QCbuLlg" alt="Suresh Veluchamy" class="profile-photo" crossorigin="anonymous"> 
+					</div>
                 </div>
                 <div>
                     <h1>Suresh Veluchamy</h1>
@@ -812,7 +1262,7 @@
                         <div class="skill-badge">Enterprise Applications</div>
                     </div>
                 </div>
-                <div class="contact-card">
+                <div class="contact-card glass-card">
                     <div class="contact-item">
                         <span class="contact-icon">📍</span>
                         <span>Bangalore, IN 560076</span>
@@ -823,7 +1273,7 @@
                     </div>
                     <div class="contact-item">
                         <span class="contact-icon">✉️</span>
-                        <a href="/cdn-cgi/l/email-protection#2053555245534811181816604c4956450e434f4d"><span class="__cf_email__" data-cfemail="285b5d5a4d5b401910101e6844415e4d064b4745">[email&#160;protected]</span></a>
+                        <a href="/cdn-cgi/l/email-protection#5427212631273c656c6c6214383d22317a373b39"><span class="__cf_email__" data-cfemail="a7d4d2d5c2d4cf969f9f91e7cbced1c289c4c8ca">[email&#160;protected]</span></a>
                     </div>
                     <div class="contact-item">
                         <span class="contact-icon">🔗</span>
@@ -841,7 +1291,7 @@
         <section class="section" id="experience">
             <h2 class="section-header">Professional Experience</h2>
 
-            <div class="experience-item">
+            <div class="experience-item glass-card">
                 <div class="experience-header">
                     <div>
                         <h3 class="experience-title">Technical Module Lead</h3>
@@ -867,7 +1317,7 @@
                 </div>
             </div>
 
-            <div class="experience-item">
+            <div class="experience-item glass-card">
                 <div class="experience-header">
                     <div>
                         <h3 class="experience-title">Senior Software Engineer</h3>
@@ -890,7 +1340,7 @@
                 </div>
             </div>
 
-            <div class="experience-item">
+            <div class="experience-item glass-card">
                 <div class="experience-header">
                     <div>
                         <h3 class="experience-title">Software Engineer</h3>
@@ -908,7 +1358,7 @@
                 </div>
             </div>
 
-            <div class="experience-item">
+            <div class="experience-item glass-card">
                 <div class="experience-header">
                     <div>
                         <h3 class="experience-title">Software Application Developer</h3>
@@ -929,45 +1379,118 @@
         <section class="section" id="skills">
             <h2 class="section-header">Technical Skills</h2>
             <div class="tech-skills-grid">
-                <div class="tech-category">
+                <div class="tech-category glass-card">
                     <h3>Backend & Frameworks</h3>
                     <p>C#, VB.NET, ASP.NET MVC, .NET Core (2.0+), RESTful Web APIs</p>
                 </div>
-                <div class="tech-category">
+                <div class="tech-category glass-card">
                     <h3>Frontend Technologies</h3>
                     <p>Angular (Basics), JavaScript, jQuery, HTML5, CSS3, Bootstrap, AJAX</p>
                 </div>
-                <div class="tech-category">
+                <div class="tech-category glass-card">
                     <h3>Databases</h3>
                     <p>Oracle 11g / 21c, Microsoft SQL Server, PostgreSQL</p>
                 </div>
-                <div class="tech-category">
+                <div class="tech-category glass-card">
                     <h3>Reporting & Tools</h3>
                     <p>RDLC, Crystal Reports, Visual Studio, VS Code, Postman, Swagger</p>
                 </div>
-                <div class="tech-category">
+                <div class="tech-category glass-card">
                     <h3>Integration & EDI</h3>
                     <p>EDIFACT, AFSYS, SCI, Port & Customs EDI Standards</p>
                 </div>
             </div>
         </section>
 
+        <section class="section" id="work-preferences">
+            <h2 class="section-header">Work Preferences</h2>
+            <div class="preference-grid">
+                <div class="preference-item glass-card">
+                    <h3>💼 Work Type</h3>
+                    <p>Full Time</p>
+                </div>
+                <div class="preference-item glass-card">
+                    <h3>📍 Work Mode</h3>
+                    <p>Remote / Hybrid</p>
+                </div>
+                <div class="preference-item glass-card">
+                    <h3>🌍 Location Preference</h3>
+                    <div class="location-tags">
+                        <span class="location-tag">Bangalore</span>
+                        <span class="location-tag">Chennai</span>
+                        <span class="location-tag">Coimbatore</span>
+                        <span class="location-tag">Hyderabad</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="availability-container">
+                <h3 style="font-size: 1.5rem; color: var(--primary); margin: 3rem 0 1.5rem; font-weight: 700;">📅 Work Availability</h3>
+                <table class="availability-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>MONDAY</th>
+                            <th>TUESDAY</th>
+                            <th>WEDNESDAY</th>
+                            <th>THURSDAY</th>
+                            <th>FRIDAY</th>
+                            <th>SATURDAY</th>
+                            <th>SUNDAY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MORNING</td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                        </tr>
+                        <tr>
+                            <td>AFTERNOON</td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                        </tr>
+                        <tr>
+                            <td>EVENING</td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <section class="section" id="accomplishments">
             <h2 class="section-header">Key Accomplishments</h2>
-            <div class="accomplishment-card">
+            <div class="accomplishment-card glass-card">
                 <p>Achieved approximately <strong>80% improvement in application performance</strong> by executing comprehensive API-level and database-level performance tuning, including query optimization, indexing strategies, payload optimization, and API response enhancements for high-volume terminal operations.</p>
             </div>
-            <div class="accomplishment-card">
+            <div class="accomplishment-card glass-card">
                 <p>Successfully implemented <strong>EDIFACT-based EDI integrations</strong> for booking, Bill of Lading (BL), and container movement workflows, enabling automated data exchange with ports, terminals, liners, and depots.</p>
             </div>
-            <div class="accomplishment-card">
+            <div class="accomplishment-card glass-card">
                 <p>Designed and supported <strong>FTP-based EDI file ingestion</strong>, parsing, validation, and posting mechanisms to reliably process high-volume logistics transactions across multiple external systems.</p>
             </div>
         </section>
 
         <section class="section" id="education">
             <h2 class="section-header">Education</h2>
-            <div class="timeline-item">
+            <div class="timeline-item glass-card">
                 <div class="timeline-date">Jul 2004 - Jul 2009</div>
                 <div class="timeline-title">Master of Science: Software Engineering</div>
                 <div class="timeline-subtitle">Anna University - Chennai, India</div>
@@ -975,22 +1498,170 @@
         </section>
 
         <section class="section" id="certifications">
-            <h2 class="section-header">Certifications</h2>
-            <div class="timeline-item">
-                <div class="timeline-date">Dec 2025</div>
-                <div class="timeline-title">Generative AI Foundations Certification</div>
-                <div class="timeline-subtitle">upGrad, in collaboration with Microsoft</div>
+            <h2 class="section-header">Career Timeline</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-items">
+                    <!-- Dec 2025 - Gen AI Certification -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">🎓</div>
+                            <div class="timeline-cert-title">Generative AI Foundations Certification</div>
+                            <div class="timeline-cert-org">upGrad, in collaboration with Microsoft</div>
+                            <div class="timeline-cert-date">12-2025</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">🎓</div>
+                            <div class="timeline-cert-title">Generative AI Foundations Certification</div>
+                            <div class="timeline-cert-org">upGrad, in collaboration with Microsoft</div>
+                            <div class="timeline-cert-date">12-2025</div>
+                        </div>
+                    </div>
+
+                    <!-- Nov 2025 - React Certification -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">⚛️</div>
+                            <div class="timeline-cert-title">React Essential Training</div>
+                            <div class="timeline-cert-org">LinkedIn</div>
+                            <div class="timeline-cert-date">11-2025</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">⚛️</div>
+                            <div class="timeline-cert-title">React Essential Training</div>
+                            <div class="timeline-cert-org">LinkedIn</div>
+                            <div class="timeline-cert-date">11-2025</div>
+                        </div>
+                    </div>
+
+                    <!-- Jun 2024 - REST API Certification -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">🔧</div>
+                            <div class="timeline-cert-title">REST API Development with ASP.NET & C#</div>
+                            <div class="timeline-cert-org">LinkedIn</div>
+                            <div class="timeline-cert-date">06-2024</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">🔧</div>
+                            <div class="timeline-cert-title">REST API Development with ASP.NET & C#</div>
+                            <div class="timeline-cert-org">LinkedIn</div>
+                            <div class="timeline-cert-date">06-2024</div>
+                        </div>
+                    </div>
+
+                    <!-- Apr 2024 - Current - Technical Module Lead -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">💼</div>
+                            <div class="timeline-cert-title">Technical Module Lead</div>
+                            <div class="timeline-cert-org">Quantum BSO Tech Pvt Ltd, Bangalore</div>
+                            <div class="timeline-cert-date">Apr 2024 - Present</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">💼</div>
+                            <div class="timeline-cert-title">Technical Module Lead</div>
+                            <div class="timeline-cert-org">Quantum BSO Tech Pvt Ltd, Bangalore</div>
+                            <div class="timeline-cert-date">Apr 2024 - Present</div>
+                        </div>
+                    </div>
+
+                    <!-- Oct 2022 - Mar 2024 - Senior Software Engineer -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">💻</div>
+                            <div class="timeline-cert-title">Senior Software Engineer</div>
+                            <div class="timeline-cert-org">Quantum BSO Tech Pvt Ltd, Bangalore</div>
+                            <div class="timeline-cert-date">Oct 2022 - Mar 2024</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">💻</div>
+                            <div class="timeline-cert-title">Senior Software Engineer</div>
+                            <div class="timeline-cert-org">Quantum BSO Tech Pvt Ltd, Bangalore</div>
+                            <div class="timeline-cert-date">Oct 2022 - Mar 2024</div>
+                        </div>
+                    </div>
+
+                    <!-- Oct 2020 - Oct 2022 - Software Engineer -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">🏦</div>
+                            <div class="timeline-cert-title">Software Engineer</div>
+                            <div class="timeline-cert-org">Canbank Computer Service Ltd (CCSL), Bangalore</div>
+                            <div class="timeline-cert-date">Oct 2020 - Oct 2022</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">🏦</div>
+                            <div class="timeline-cert-title">Software Engineer</div>
+                            <div class="timeline-cert-org">Canbank Computer Service Ltd (CCSL), Bangalore</div>
+                            <div class="timeline-cert-date">Oct 2020 - Oct 2022</div>
+                        </div>
+                    </div>
+
+                    <!-- Mar 2016 - Jul 2019 - Software Application Developer -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">⚙️</div>
+                            <div class="timeline-cert-title">Software Application Developer</div>
+                            <div class="timeline-cert-org">Abdulla Ahmed AlDossary Co., AL-Kobhar, KSA</div>
+                            <div class="timeline-cert-date">Mar 2016 - Jul 2019</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">⚙️</div>
+                            <div class="timeline-cert-title">Software Application Developer</div>
+                            <div class="timeline-cert-org">Abdulla Ahmed AlDossary Co., AL-Kobhar, KSA</div>
+                            <div class="timeline-cert-date">Mar 2016 - Jul 2019</div>
+                        </div>
+                    </div>
+
+                    <!-- Jul 2004 - Jul 2009 - Education -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">🎓</div>
+                            <div class="timeline-cert-title">Master of Science: Software Engineering</div>
+                            <div class="timeline-cert-org">Anna University - Chennai, India</div>
+                            <div class="timeline-cert-date">Jul 2004 - Jul 2009</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">🎓</div>
+                            <div class="timeline-cert-title">Master of Science: Software Engineering</div>
+                            <div class="timeline-cert-org">Anna University - Chennai, India</div>
+                            <div class="timeline-cert-date">Jul 2004 - Jul 2009</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Nov 2025</div>
-                <div class="timeline-title">React Essential Training</div>
-                <div class="timeline-subtitle">LinkedIn</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Jun 2024</div>
-                <div class="timeline-title">REST API Development with ASP.NET & C#</div>
-                <div class="timeline-subtitle">LinkedIn</div>
-            </div>
+        </section>
+
+        <section class="section" id="affiliations">
+            <h2 class="section-header">Affiliations</h2>
+            <ul class="affiliations-list">
+                <li>UpGrad & Microsoft – Generative AI Foundations Program (Certified)</li>
+            </ul>
         </section>
 
         <footer>
@@ -1000,44 +1671,24 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Smooth scroll animation on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, {
-                threshold: 0.1
-                 });
-
-            // Observe all sections for scroll animations
-            document.querySelectorAll('.section').forEach((section) => {
-                observer.observe(section);
-            });
-
             // Navigation functionality
             const navItems = document.querySelectorAll('.nav-item');
             const sections = document.querySelectorAll('section[id], header[id]');
             const navToggle = document.querySelector('.nav-toggle');
             const sidebarNav = document.querySelector('.sidebar-nav');
 
-            // Click handler for navigation items
             navItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const sectionId = this.getAttribute('data-section');
                     const section = document.getElementById(sectionId);
                     
                     if (section) {
-                        // Smooth scroll to section
                         section.scrollIntoView({ 
                             behavior: 'smooth', 
                             block: 'start' 
                         });
 
-                        // Close mobile nav if open
                         if (window.innerWidth <= 768) {
                             sidebarNav.classList.remove('mobile-open');
                             navToggle.classList.remove('active');
@@ -1046,7 +1697,6 @@
                 });
             });
 
-            // Active section highlighting on scroll
             const highlightNavigation = () => {
                 let scrollPosition = window.scrollY + 100;
 
@@ -1066,13 +1716,11 @@
                 });
             };
 
-            // Mobile navigation toggle
             navToggle.addEventListener('click', function() {
                 this.classList.toggle('active');
                 sidebarNav.classList.toggle('mobile-open');
             });
 
-            // Close mobile nav when clicking outside
             document.addEventListener('click', function(event) {
                 if (window.innerWidth <= 768) {
                     const isClickInsideNav = sidebarNav.contains(event.target);
@@ -1085,17 +1733,4 @@
                 }
             });
 
-            // Listen to scroll events
-            window.addEventListener('scroll', highlightNavigation);
-            
-            // Initial highlight
-            highlightNavigation();
-
-            // Set Profile as active initially
-            if (window.scrollY < 100) {
-                navItems[0].classList.add('active');
-            }
-        });
-    </script>
-</body>
-</html>
+          
