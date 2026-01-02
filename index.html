@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suresh Veluchamy - Technical Lead</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0099cc;
+            --accent: #ff6b35;
+            --dark: #0a0e27;
+            --darker: #050814;
+            --text-light: #ffffff;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--darker);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 153, 204, 0.1) 0%, transparent 50%);
+            animation: gradientShift 15s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(5%, 5%) rotate(120deg); }
+            66% { transform: translate(-5%, 5%) rotate(240deg); }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .particle:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation: float 10s ease-in-out infinite 2s;
+        }
+
+        .particle:nth-child(3) {
+            top: 80%;
+            left: 30%;
+            animation: float 12s ease-in-out infinite 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar-nav {
+            position: fixed;
+            right: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            animation: slideInRight 1s ease-out 1.5s both;
+            pointer-events: auto;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translate(50px, -50%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(0, -50%);
+            }
+        }
+
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: flex-end;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+        }
+
+        .nav-label {
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-light);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--glass-border);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .nav-item:hover .nav-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            pointer-events: none;
+        }
+
+        .nav-item:hover .nav-dot {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.3);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .nav-item.active .nav-dot {
+            background: var(--primary);
+            border-color: transparent;
+            transform: scale(1.5);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .nav-item.active .nav-dot::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        /* Mobile navigation */
+        .nav-toggle {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 5px 30px rgba(0, 212, 255, 0.5);
+            transition: all 0.3s ease;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .nav-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 40px rgba(0, 212, 255, 0.7);
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            margin: 3px 0;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Header */
+        header {
+            padding: 4rem 0 3rem;
+            position: relative;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .profile-photo-container {
+            position: relative;
+            animation: scaleIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .profile-photo-placeholder {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            box-shadow: 
+                0 20px 60px rgba(0, 212, 255, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-photo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .profile-photo-placeholder:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 
+                0 25px 80px rgba(0, 212, 255, 0.6),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            text-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Glass morphism cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.1) 0%, 
+                transparent 50%, 
+                rgba(255, 107, 53, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+			pointer-events: none;
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact-card {
+            animation: fadeInLeft 1s ease-out 0.8s both;
+            position: relative;
+        }
+
+        /* Enable clicks for contact card children */
+        .contact-card .contact-item,
+        .contact-card .contact-item a,
+        .contact-card .languages {
+            pointer-events: auto;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .contact-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+			pointer-events: none;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+			pointer-events: none;
+        }
+
+        .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+			cursor: pointer;
+			z-index: 10;
+           display: inline-block;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .skill-badge {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: fadeInUp 1s ease-out both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-badge::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .skill-badge:hover::before {
+            width: 300px;
+            height: 300px;
+            opacity: 0.2;
+        }
+
+        .skill-badge:nth-child(1) { animation-delay: 0.1s; }
+        .skill-badge:nth-child(2) { animation-delay: 0.2s; }
+        .skill-badge:nth-child(3) { animation-delay: 0.3s; }
+        .skill-badge:nth-child(4) { animation-delay: 0.4s; }
+        .skill-badge:nth-child(5) { animation-delay: 0.5s; }
+
+        .skill-badge:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Sections */
+        .section {
+            margin: 5rem 0;
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .section-header {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+            color: var(--text-light);
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+            filter: blur(10px);
+            opacity: 0.5;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out both;
+            transition: all 0.5s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateX(15px);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .experience-company {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .experience-date {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 0.5rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 53, 0.2));
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .project-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-item li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .experience-item li:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .experience-item li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .tech-stack {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .tech-stack strong {
+            color: var(--primary);
+        }
+
+        /* Technical Skills */
+        .tech-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-category {
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .tech-category h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .tech-category p {
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        /* Timeline */
+        .timeline-item {
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+            animation: fadeInUp 1s ease-out both;
+            transition: all 0.5s ease;
+            box-shadow: -20px 0 40px rgba(0, 212, 255, 0);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(15px);
+            border-left-width: 6px;
+            box-shadow: -20px 0 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-subtitle {
+            color: var(--text-muted);
+        }
+
+        /* Accomplishments */
+        .accomplishment-card {
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out both;
+            transition: all 0.5s ease;
+        }
+
+        .accomplishment-card::before {
+            content: '★';
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.2;
+            transition: all 0.5s ease;
+        }
+
+        .accomplishment-card:hover::before {
+            opacity: 0.4;
+            transform: rotate(72deg) scale(1.2);
+        }
+
+        .accomplishment-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .accomplishment-card p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .accomplishment-card strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Languages */
+        .languages {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .language-badge {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 53, 0.2));
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .language-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Call to Action Section */
+        .cta-section {
+            margin: 4rem 0;
+            padding: 0;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 107, 53, 0.1));
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 2rem;
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            animation: rotateCTA 20s linear infinite;
+        }
+
+        @keyframes rotateCTA {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cta-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.5);
+            border-color: var(--accent);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-expertise-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            border: 1px solid var(--glass-border);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-expertise-item:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .cta-button-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.6);
+        }
+
+        .cta-button-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cta-button-secondary:hover {
+            background: var(--primary);
+            color: var(--darker);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .cta-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .cta-title {
+                font-size: 1.8rem;
+            }
+
+            .cta-subtitle {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Work Preferences */
+        .preference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .preference-item h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .preference-item p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .location-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .location-tag {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 53, 0.2));
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .location-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Work Availability Table */
+        .availability-container {
+            margin-top: 2rem;
+            overflow-x: auto;
+        }
+
+        .availability-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .availability-table th {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 1.25rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--glass-border);
+        }
+
+        .availability-table td {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .availability-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .availability-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-light);
+            padding-left: 2rem;
+        }
+
+        .availability-table tr:hover td {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .available {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .unavailable {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Timeline Styles */
+        .timeline-container {
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            transform: translateX(-50%);
+        }
+
+        .timeline-items {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .timeline-entry {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .timeline-entry:nth-child(even) .timeline-content-left {
+            order: 3;
+        }
+
+        .timeline-entry:nth-child(even) .timeline-dot-container {
+            order: 2;
+        }
+
+        .timeline-entry:nth-child(even) .timeline-content-right {
+            order: 1;
+        }
+
+        .timeline-content-left,
+        .timeline-content-right {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .timeline-content-left:hover,
+        .timeline-content-right:hover {
+            transform: scale(1.05);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .timeline-content-left {
+            text-align: right;
+        }
+
+        .timeline-dot-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: 4px solid var(--darker);
+            box-shadow: 0 0 30px var(--primary);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 30px var(--primary); }
+            50% { box-shadow: 0 0 50px var(--primary), 0 0 70px var(--primary); }
+        }
+
+        .timeline-cert-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .timeline-content-right .timeline-cert-icon {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .timeline-content-left .timeline-cert-icon {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .timeline-cert-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-cert-org {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-cert-date {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Affiliations */
+        .affiliations-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .affiliations-list li {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out both;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .affiliations-list li::before {
+            content: '★';
+            color: var(--primary);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .affiliations-list li:hover {
+            transform: translateX(10px);
+            border-left-width: 6px;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-entry {
+                grid-template-columns: auto 1fr;
+                gap: 1rem;
+            }
+
+            .timeline-content-left {
+                display: none;
+            }
+
+            .timeline-entry:nth-child(even) .timeline-content-right {
+                order: 2;
+            }
+
+            .timeline-entry:nth-child(even) .timeline-dot-container {
+                order: 1;
+            }
+
+            .timeline-content-right {
+                text-align: left;
+            }
+
+            .timeline-content-right .timeline-cert-icon {
+                margin-left: 0;
+                margin-right: auto;
+            }
+
+            .availability-table {
+                font-size: 0.85rem;
+            }
+
+            .availability-table th,
+            .availability-table td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .availability-table td:first-child {
+                padding-left: 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 5rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar-nav {
+                right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .header-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-photo-container {
+                margin: 0 auto 2rem;
+            }
+
+            .section-header {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+                padding-bottom: 5rem;
+            }
+
+            .sidebar-nav {
+                display: none;
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                transform: translateY(100%);
+                background: var(--dark);
+                backdrop-filter: blur(20px);
+                border: none;
+                border-top: 2px solid var(--primary);
+                border-radius: 1.5rem 1.5rem 0 0;
+                padding: 2rem 1.5rem;
+                max-height: 70vh;
+                overflow-y: auto;
+                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+                z-index: 1000;
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar-nav.mobile-open {
+                display: block;
+                transform: translateY(0);
+            }
+
+            .nav-items {
+                align-items: stretch;
+                gap: 0.75rem;
+            }
+
+            .nav-item {
+                padding: 1rem 1.5rem;
+                background: var(--glass-bg);
+                backdrop-filter: blur(10px);
+                border-radius: 0.75rem;
+                border: 1px solid var(--glass-border);
+                transition: all 0.3s ease;
+            }
+
+            .nav-item:hover {
+                background: rgba(0, 212, 255, 0.1);
+                border-color: var(--primary);
+            }
+
+            .nav-item.active {
+                background: rgba(0, 212, 255, 0.2);
+                border-color: var(--primary);
+            }
+
+            .nav-label {
+                opacity: 1;
+                transform: translateX(0);
+                background: transparent;
+                border: none;
+                padding: 0;
+                pointer-events: auto;
+                font-size: 1rem;
+            }
+
+            .nav-dot {
+                order: -1;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .preference-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar-nav">
+        <div class="nav-items">
+            <div class="nav-item" data-section="header" onclick="scrollToSection('header')">
+                <span class="nav-label">Profile</span>
+                <div class="nav-dot"></div>
+            </div>
+            <div class="nav-item" data-section="experience" onclick="scrollToSection('experience')">
+                <span class="nav-label">Experience</span>
+                <div class="nav-dot"></div>
+            </div>
+            <div class="nav-item" data-section="skills" onclick="scrollToSection('skills')">
+                <span class="nav-label">Technical Skills</span>
+                <div class="nav-dot"></div>
+            </div>
+            <div class="nav-item" data-section="work-preferences" onclick="scrollToSection('work-preferences')">
+                <span class="nav-label">Work Preferences</span>
+                <div class="nav-dot"></div>
+            </div>
+            <div class="nav-item" data-section="accomplishments" onclick="scrollToSection('accomplishments')">
+                <span class="nav-label">Accomplishments</span>
+                <div class="nav-dot"></div>
+            </div>
+            <div class="nav-item" data-section="education" onclick="scrollToSection('education')">
+                <span class="nav-label">Education</span>
+                <div class="nav-dot"></div>
+            </div>
+            <div class="nav-item" data-section="certifications" onclick="scrollToSection('certifications')">
+                <span class="nav-label">Timeline</span>
+                <div class="nav-dot"></div>
+            </div>
+            <div class="nav-item" data-section="affiliations" onclick="scrollToSection('affiliations')">
+                <span class="nav-label">Affiliations</span>
+                <div class="nav-dot"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Toggle -->
+    <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="container">
+        <header id="header">
+            <div class="header-content">
+                <div class="profile-photo-container">
+                    <div class="profile-photo-placeholder">
+					 <img src="https://media.licdn.com/dms/image/v2/D5603AQHpzvmYcnIQww/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1689078558161?e=1769040000&v=beta&t=jaFXXuyXhc48hSaVnqj7G-NQ-1UYKkpTEUHJHEStzaQ" > 
+					</div>
+                </div>
+                <div>
+                    <h1>Suresh Veluchamy</h1>
+                    <p class="title">Technical Module Lead / Senior Software Engineer</p>
+                    <p class="intro">
+                       Technical Module Lead / Senior Software Engineer with 8+ years of experience in designing, developing, and leading enterprise applications across Logistics, Ports & Terminals, Shipping, and Banking domains. Strong expertise in .NET Core, ASP.NET MVC, Web API, Angular, and Oracle/MSSQL/PostgreSQL databases. Hands-on experience in EDI integrations (EDIFACT) for booking, Bill of Lading, and container movement workflows, including FTP-based file processing with ports, terminals, liners, and depots. Proven capability in API-level and database-level performance tuning, scalable system design, and team coordination. Adept at translating business requirements into reliable, maintainable technical solutions. Also completed Generative AI Foundations certification from upGrad in collaboration with Microsoft, with exposure to AI concepts and enterprise use cases relevant to modern software systems.
+                    </p>
+                    <div class="skills-grid">
+                        <div class="skill-badge">Technical Leadership</div>
+                        <div class="skill-badge">Module Ownership</div>
+                        <div class="skill-badge">Performance Tuning</div>
+                        <div class="skill-badge">EDI Integration</div>
+                        <div class="skill-badge">Enterprise Applications</div>
+                    </div>
+                </div>
+                <div class="contact-card glass-card">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>Bangalore, IN 560076</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <a href="tel:+919150770932">+91 91507 70932</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <a href="mailto:suresh1886@live.com">suresh1886@live.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🔗</span>
+                        <a href="https://bold.pro/my/suresh-veluchamy-251214221826" target="_blank" rel="noopener noreferrer">Bold Profile</a>
+                    </div>
+					 <div class="contact-item">
+                        <span class="contact-icon">🔗</span>
+                        <a href="https://www.linkedin.com/in/suresh-veluchamy" target="_blank" rel="noopener noreferrer" >LinkedIn Profile</a>
+                    </div>
+                    <div class="languages">
+                        <span class="language-badge">English</span>
+                        <span class="language-badge">Tamil</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h2 class="cta-title">Let's Connect & Build Something Amazing Together!</h2>
+                    <p class="cta-subtitle">
+                        Ready to transform your business with cutting-edge technology? I specialize in delivering enterprise-scale solutions that drive real results.
+                    </p>
+                    <div class="cta-expertise">
+                        <div class="cta-expertise-item">
+                            <span>🏢</span> ERP Systems
+                        </div>
+                        <div class="cta-expertise-item">
+                            <span>🌐</span> Web Applications
+                        </div>
+                        <div class="cta-expertise-item">
+                            <span>⚙️</span> Windows Services
+                        </div>
+                        <div class="cta-expertise-item">
+                            <span>🔗</span> API Development
+                        </div>
+                        <div class="cta-expertise-item">
+                            <span>📊</span> Database Optimization
+                        </div>
+                        <div class="cta-expertise-item">
+                            <span>🚢</span> Logistics & Shipping
+                        </div>
+                        <div class="cta-expertise-item">
+                            <span>🏦</span> Banking Solutions
+                        </div>
+                        <div class="cta-expertise-item">
+                            <span>🔄</span> EDI Integration
+                        </div>
+                    </div>
+                 <!--   <div class="cta-buttons">
+                        <button onclick="copyToClipboard('suresh1886@live.com', 'email')" class="cta-button cta-button-primary" id="emailBtn">
+                            <span>📧 suresh1886@live.com</span>
+                        </button>
+                        <button onclick="copyToClipboard('+91 91507 70932', 'phone')" class="cta-button cta-button-secondary" id="phoneBtn">
+                            <span>📞 +91 91507 70932</span>
+                        </button>
+                        <a href="https://bold.pro/my/suresh-veluchamy-251214221826" target="_blank" class="cta-button cta-button-secondary">
+                            <span>🔗 View Portfolio</span>
+                        </a>
+                    </div>-->
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="experience">
+            <h2 class="section-header">Professional Experience</h2>
+
+            <div class="experience-item glass-card">
+                <div class="experience-header">
+                    <div>
+                        <h3 class="experience-title">Technical Module Lead</h3>
+                        <p class="experience-company">Quantum BSO Tech Pvt Ltd, Bangalore</p>
+                    </div>
+                    <span class="experience-date">Apr 2024 - Current</span>
+                </div>
+                <div>
+                    <span class="project-tag">Q-HSE - Health, Safety & Environment Platform</span>
+                    <span class="project-tag">QILS - Integrated Liner Service</span>
+                    <span class="project-tag">CONNECT - Barge Service</span>
+                </div>
+                <ul>
+                    <li>Led the development of a mission-critical HSE platform used in high-volume terminal environments</li>
+                    <li>Designed scalable modules for incident management, audits, risk assessments, and training compliance</li>
+                    <li>Implemented role-based access control (RBAC) and secure authorization workflows</li>
+                    <li>Performed database and API performance tuning, reducing report load times and transaction latency</li>
+                    <li>Optimized Oracle queries, indexes, and stored procedures for large operational datasets</li>
+                    <li>Delivered real-time dashboards and KPIs for management decision-making</li>
+                    <li>Developed QILS (Integrated Liner Service) system for comprehensive shipping line operations</li>
+                    <li>Built CONNECT (Barge Service) platform using modern .NET Core architecture with Entity Framework</li>
+                    <li>Led code reviews, sprint planning, and mentoring of development team members</li>
+                    <li>Collaborated cross-functionally to ensure seamless integration of modules into larger projects</li>
+                </ul>
+                <div class="tech-stack">
+                    <strong>Q-HSE Tech Stack:</strong> .NET Core, C#, Web API, Angular 19, Oracle, RDLC<br>
+                    <strong>QILS Tech Stack:</strong> VB.NET, Infragistics, Crystal Reports, Oracle 12c<br>
+                    <strong>CONNECT Tech Stack:</strong> .NET Core, Entity Framework, LINQ, Crystal Reports, PostgreSQL 17 Flex Server
+                </div>
+            </div>
+
+            <div class="experience-item glass-card">
+                <div class="experience-header">
+                    <div>
+                        <h3 class="experience-title">Senior Software Engineer</h3>
+                        <p class="experience-company">Quantum BSO Tech Pvt Ltd, Bangalore</p>
+                    </div>
+                    <span class="experience-date">Oct 2022 - Mar 2024</span>
+                </div>
+                <div>
+                    <span class="project-tag">Q-MiA - Agency-Specific ERP</span>
+                    <span class="project-tag">QILS - Integrated Liner Service</span>
+                </div>
+                <ul>
+                    <li>Developed end-to-end ERP covering booking, container movement, transport, billing, and reporting</li>
+                    <li>Implemented complex EDI integrations with Terminals, Liners, and Depots</li>
+                    <li>Supported multiple EDI standards and formats, enabling single-click bulk posting</li>
+                    <li>Designed performance-optimized batch processing for container movement data</li>
+                    <li>Automated demurrage and detention calculations based on container lifecycle events</li>
+                    <li>Developed QILS (Integrated Liner Service) system for comprehensive shipping line operations</li>
+                    <li>Built modules for vessel scheduling, cargo booking, and container tracking in QILS</li>
+                </ul>
+                <div class="tech-stack">
+                    <strong>Q-MiA Tech Stack:</strong> ASP.NET, VB.NET, Oracle 11g, JavaScript, Crystal Reports<br>
+                    <strong>QILS Tech Stack:</strong> VB.NET, Infragistics, Crystal Reports, Oracle 12c
+                </div>
+            </div>
+
+            <div class="experience-item glass-card">
+                <div class="experience-header">
+                    <div>
+                        <h3 class="experience-title">Software Engineer</h3>
+                        <p class="experience-company">Canbank Computer Service Ltd (CCSL) - IT Subsidiary of Canara Bank, Bangalore</p>
+                    </div>
+                    <span class="experience-date">Oct 2020 - Oct 2022</span>
+                </div>
+                <ul>
+                    <li>Delivered multiple RBI-compliant banking applications including BVRS, DEAF, TFPR, FAMS, HOTO, and RBIA (DARPAN)</li>
+                    <li>Focused on secure data handling, performance optimization, and audit-ready reporting</li>
+                    <li>Tuned Oracle queries and reports for large branch-level datasets</li>
+                </ul>
+                <div class="tech-stack">
+                    <strong>Tech Stack:</strong> ASP.NET MVC, C#, Oracle 11g, Bootstrap, Crystal Reports
+                </div>
+            </div>
+
+            <div class="experience-item glass-card">
+                <div class="experience-header">
+                    <div>
+                        <h3 class="experience-title">Software Application Developer</h3>
+                        <p class="experience-company">Abdulla Ahmed AlDossary Co., AL-Kobhar, Dammam, KSA</p>
+                    </div>
+                    <span class="experience-date">Mar 2016 - Jul 2019</span>
+                </div>
+                <ul>
+                    <li>Developed Workshop Maintenance System (WMS) handling equipment lifecycle, budgeting, and inventory</li>
+                    <li>Built Pump Service Center Management System covering sales, service orders, invoicing, and reporting</li>
+                </ul>
+                <div class="tech-stack">
+                    <strong>Tech Stack:</strong> VB.NET (Windows Forms), MSSQL Server, Crystal Reports
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="skills">
+            <h2 class="section-header">Technical Skills</h2>
+            <div class="tech-skills-grid">
+                <div class="tech-category glass-card">
+                    <h3>Backend & Frameworks</h3>
+                    <p>C#, VB.NET, ASP.NET MVC, .NET Core (2.0+), RESTful Web APIs</p>
+                </div>
+                <div class="tech-category glass-card">
+                    <h3>Frontend Technologies</h3>
+                    <p>Angular (Basics), JavaScript, jQuery, HTML5, CSS3, Bootstrap, AJAX</p>
+                </div>
+                <div class="tech-category glass-card">
+                    <h3>Databases</h3>
+                    <p>Oracle 11g / 21c, Microsoft SQL Server, PostgreSQL</p>
+                </div>
+                <div class="tech-category glass-card">
+                    <h3>Reporting & Tools</h3>
+                    <p>RDLC, Crystal Reports, Visual Studio, VS Code, Postman, Swagger</p>
+                </div>
+                <div class="tech-category glass-card">
+                    <h3>Integration & EDI</h3>
+                    <p>EDIFACT, AFSYS, SCI, Port & Customs EDI Standards</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="work-preferences">
+            <h2 class="section-header">Work Preferences</h2>
+            <div class="preference-grid">
+                <div class="preference-item glass-card">
+                    <h3>💼 Work Type</h3>
+                    <p>Full Time</p>
+                </div>
+                <div class="preference-item glass-card">
+                    <h3>📍 Work Mode</h3>
+                    <p>Remote / Hybrid</p>
+                </div>
+                <div class="preference-item glass-card">
+                    <h3>🌍 Location Preference</h3>
+                    <div class="location-tags">
+                        <span class="location-tag">Bangalore</span>
+                        <span class="location-tag">Chennai</span>
+                        <span class="location-tag">Coimbatore</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="availability-container">
+                <h3 style="font-size: 1.5rem; color: var(--primary); margin: 3rem 0 1.5rem; font-weight: 700;">📅 Work Availability</h3>
+                <table class="availability-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>MONDAY</th>
+                            <th>TUESDAY</th>
+                            <th>WEDNESDAY</th>
+                            <th>THURSDAY</th>
+                            <th>FRIDAY</th>
+                            <th>SATURDAY</th>
+                            <th>SUNDAY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MORNING</td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                        </tr>
+                        <tr>
+                            <td>AFTERNOON</td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                        </tr>
+                        <tr>
+                            <td>EVENING</td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="available">○</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                            <td><span class="unavailable">✕</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section" id="accomplishments">
+            <h2 class="section-header">Key Accomplishments</h2>
+            <div class="accomplishment-card glass-card">
+                <p>Achieved approximately <strong>80% improvement in application performance</strong> by executing comprehensive API-level and database-level performance tuning, including query optimization, indexing strategies, payload optimization, and API response enhancements for high-volume terminal operations.</p>
+            </div>
+            <div class="accomplishment-card glass-card">
+                <p>Successfully implemented <strong>EDIFACT-based EDI integrations</strong> for booking, Bill of Lading (BL), and container movement workflows, enabling automated data exchange with ports, terminals, liners, and depots.</p>
+            </div>
+            <div class="accomplishment-card glass-card">
+                <p>Designed and supported <strong>FTP-based EDI file ingestion</strong>, parsing, validation, and posting mechanisms to reliably process high-volume logistics transactions across multiple external systems.</p>
+            </div>
+        </section>
+
+        <section class="section" id="education">
+            <h2 class="section-header">Education</h2>
+            <div class="timeline-item glass-card">
+                <div class="timeline-date">Jul 2004 - Jul 2009</div>
+                <div class="timeline-title">Master of Science: Software Engineering</div>
+                <div class="timeline-subtitle">Anna University - Chennai, India</div>
+            </div>
+        </section>
+
+        <section class="section" id="certifications">
+            <h2 class="section-header">Career Timeline</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-items">
+                    <!-- Dec 2025 - Gen AI Certification -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">🎓</div>
+                            <div class="timeline-cert-title">Generative AI Foundations Certification</div>
+                            <div class="timeline-cert-org">upGrad, in collaboration with Microsoft</div>
+                            <div class="timeline-cert-date">12-2025</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">🎓</div>
+                            <div class="timeline-cert-title">Generative AI Foundations Certification</div>
+                            <div class="timeline-cert-org">upGrad, in collaboration with Microsoft</div>
+                            <div class="timeline-cert-date">12-2025</div>
+                        </div>
+                    </div>
+
+                    <!-- Nov 2025 - React Certification -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">⚛️</div>
+                            <div class="timeline-cert-title">React Essential Training</div>
+                            <div class="timeline-cert-org">LinkedIn</div>
+                            <div class="timeline-cert-date">11-2025</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">⚛️</div>
+                            <div class="timeline-cert-title">React Essential Training</div>
+                            <div class="timeline-cert-org">LinkedIn</div>
+                            <div class="timeline-cert-date">11-2025</div>
+                        </div>
+                    </div>
+
+                    <!-- Jun 2024 - REST API Certification -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">🔧</div>
+                            <div class="timeline-cert-title">REST API Development with ASP.NET & C#</div>
+                            <div class="timeline-cert-org">LinkedIn</div>
+                            <div class="timeline-cert-date">06-2024</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">🔧</div>
+                            <div class="timeline-cert-title">REST API Development with ASP.NET & C#</div>
+                            <div class="timeline-cert-org">LinkedIn</div>
+                            <div class="timeline-cert-date">06-2024</div>
+                        </div>
+                    </div>
+
+                    <!-- Apr 2024 - Current - Technical Module Lead -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">💼</div>
+                            <div class="timeline-cert-title">Technical Module Lead</div>
+                            <div class="timeline-cert-org">Quantum BSO Tech Pvt Ltd, Bangalore</div>
+                            <div class="timeline-cert-date">Apr 2024 - Present</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">💼</div>
+                            <div class="timeline-cert-title">Technical Module Lead</div>
+                            <div class="timeline-cert-org">Quantum BSO Tech Pvt Ltd, Bangalore</div>
+                            <div class="timeline-cert-date">Apr 2024 - Present</div>
+                        </div>
+                    </div>
+
+                    <!-- Oct 2022 - Mar 2024 - Senior Software Engineer -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">💻</div>
+                            <div class="timeline-cert-title">Senior Software Engineer</div>
+                            <div class="timeline-cert-org">Quantum BSO Tech Pvt Ltd, Bangalore</div>
+                            <div class="timeline-cert-date">Oct 2022 - Mar 2024</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">💻</div>
+                            <div class="timeline-cert-title">Senior Software Engineer</div>
+                            <div class="timeline-cert-org">Quantum BSO Tech Pvt Ltd, Bangalore</div>
+                            <div class="timeline-cert-date">Oct 2022 - Mar 2024</div>
+                        </div>
+                    </div>
+
+                    <!-- Oct 2020 - Oct 2022 - Software Engineer -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">🏦</div>
+                            <div class="timeline-cert-title">Software Engineer</div>
+                            <div class="timeline-cert-org">Canbank Computer Service Ltd (CCSL), Bangalore</div>
+                            <div class="timeline-cert-date">Oct 2020 - Oct 2022</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">🏦</div>
+                            <div class="timeline-cert-title">Software Engineer</div>
+                            <div class="timeline-cert-org">Canbank Computer Service Ltd (CCSL), Bangalore</div>
+                            <div class="timeline-cert-date">Oct 2020 - Oct 2022</div>
+                        </div>
+                    </div>
+
+                    <!-- Mar 2016 - Jul 2019 - Software Application Developer -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">⚙️</div>
+                            <div class="timeline-cert-title">Software Application Developer</div>
+                            <div class="timeline-cert-org">Abdulla Ahmed AlDossary Co., AL-Kobhar, KSA</div>
+                            <div class="timeline-cert-date">Mar 2016 - Jul 2019</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">⚙️</div>
+                            <div class="timeline-cert-title">Software Application Developer</div>
+                            <div class="timeline-cert-org">Abdulla Ahmed AlDossary Co., AL-Kobhar, KSA</div>
+                            <div class="timeline-cert-date">Mar 2016 - Jul 2019</div>
+                        </div>
+                    </div>
+
+                    <!-- Jul 2004 - Jul 2009 - Education -->
+                    <div class="timeline-entry">
+                        <div class="timeline-content-left glass-card">
+                            <div class="timeline-cert-icon">🎓</div>
+                            <div class="timeline-cert-title">Master of Science: Software Engineering</div>
+                            <div class="timeline-cert-org">Anna University - Chennai, India</div>
+                            <div class="timeline-cert-date">Jul 2004 - Jul 2009</div>
+                        </div>
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content-right glass-card">
+                            <div class="timeline-cert-icon">🎓</div>
+                            <div class="timeline-cert-title">Master of Science: Software Engineering</div>
+                            <div class="timeline-cert-org">Anna University - Chennai, India</div>
+                            <div class="timeline-cert-date">Jul 2004 - Jul 2009</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="affiliations">
+            <h2 class="section-header">Affiliations</h2>
+            <ul class="affiliations-list">
+                <li>UpGrad & Microsoft – Generative AI Foundations Program (Certified)</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>© 2025 Suresh Veluchamy. All rights reserved.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">Ready to make an impact? Let's connect!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Global scroll function - explicitly attached to window
+        window.scrollToSection = function(sectionId) {
+            console.log('scrollToSection called with:', sectionId);
+            const section = document.getElementById(sectionId);
+            console.log('Section found:', section);
+            
+            if (section) {
+                section.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+                
+                // Close mobile menu if open
+                if (window.innerWidth <= 768) {
+                    const sidebarNav = document.querySelector('.sidebar-nav');
+                    const navToggle = document.querySelector('.nav-toggle');
+                    if (sidebarNav) sidebarNav.classList.remove('mobile-open');
+                    if (navToggle) navToggle.classList.remove('active');
+                }
+            } else {
+                console.error('Section not found:', sectionId);
+            }
+        };
+
+        // Copy to clipboard function
+        function copyToClipboard(text, type) {
+            // Use modern clipboard API if available
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopyFeedback(type);
+                }).catch(function() {
+                    // Fallback for older browsers
+                    fallbackCopy(text, type);
+                });
+            } else {
+                fallbackCopy(text, type);
+            }
+        }
+
+        function fallbackCopy(text, type) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showCopyFeedback(type);
+        }
+
+        function showCopyFeedback(type) {
+            const button = type === 'email' ? document.getElementById('emailBtn') : document.getElementById('phoneBtn');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<span>✅ Copied to Clipboard!</span>';
+            button.style.transform = 'scale(1.05)';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.transform = '';
+            }, 2000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('section[id], header[id]');
+            const navToggle = document.querySelector('.nav-toggle');
+            const sidebarNav = document.querySelector('.sidebar-nav');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    const section = document.getElementById(sectionId);
+                    
+                    if (section) {
+                        section.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+
+                        if (window.innerWidth <= 768) {
+                            sidebarNav.classList.remove('mobile-open');
+                            navToggle.classList.remove('active');
+                        }
+                    }
+                });
+            });
+
+            const highlightNavigation = () => {
+                let scrollPosition = window.scrollY + 100;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navItems.forEach(item => {
+                            item.classList.remove('active');
+                            if (item.getAttribute('data-section') === sectionId) {
+                                item.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            };
+
+            // Mobile navigation toggle
+            navToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                sidebarNav.classList.toggle('mobile-open');
+            });
+
+            // Close mobile nav when clicking outside
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768) {
+                    const isClickInsideNav = sidebarNav.contains(event.target);
+                    const isClickOnToggle = navToggle.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnToggle && sidebarNav.classList.contains('mobile-open')) {
+                        sidebarNav.classList.remove('mobile-open');
+                        navToggle.classList.remove('active');
+                    }
+                }
+            });
+
+            // Listen to scroll events
+            window.addEventListener('scroll', highlightNavigation);
+            
+            // Initial highlight
+            highlightNavigation();
+
+            // Set Profile as active initially
+            if (window.scrollY < 100) {
+                navItems[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
